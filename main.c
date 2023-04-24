@@ -16,12 +16,14 @@ int main() {
 
     char buffer[fileLen];
     fread(buffer, sizeof(char), fileLen, inputFile);
-    int rowsNum = rowCounter(buffer, fileLen);
-    int columnsNum = columnCounter(buffer);
 
-    int matrix[rowsNum][columnsNum];
+    int rows = 4; // rowCounter(buffer, fileLen)
+    char *line = strtok(buffer, "\n");
+    int cols = (int) strlen(line);
 
-    strToMatrix(*matrix, buffer);
+    char **matrix = strToMatrix(buffer, rows, cols);
+
+    graphvizConverter(matrix, rows, cols);
 
     fclose(inputFile);
 }

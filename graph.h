@@ -9,10 +9,10 @@
 #define INPUT_FILE "../input.txt"
 #define OUTPUT_FILE "../output.txt"
 
-int rowCounter(char *buffer, int len);
+int rowCounter(const char *buffer, int len);
 
-int columnCounter(char *buffer);
+char **strToMatrix(char *buffer, int rows, int cols);
 
-void strToMatrix(int *matrix, char *buffer);
+void graphvizConverter(char **matrix, int rows, int cols);
 
 #endif
