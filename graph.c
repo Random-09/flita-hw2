@@ -58,6 +58,6 @@ void graphvizConverter(char **matrix, int rows, int cols) {
     fputs("}", outputFile);
     fclose(outputFile);
     char str[50];
-    sprintf(str, "dot -Tpng %s -o ../output.png", OUTPUT_FILE);
+    sprintf(str, "dot -Tpng %s -o ../output.png", OUTPUT_FILE);             // <----- !!!!!!!!!!!!!!!!!!!!!
     system(str);
 }
