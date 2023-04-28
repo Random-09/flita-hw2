@@ -10,35 +10,34 @@ int rowCounter(const char *buffer, int len) {
     return count;
 }
 
-char **strToMatrix(char * buffer, int rows, int cols) {
+char **strToMatrix(char *buffer, int rows, int cols) {
     char *line = strtok(buffer, "\n");
-//    char **matrix = (char **) malloc(sizeof(char *) * rows);
+    char **matrix = (char **) malloc(sizeof(char *) * rows);
     int i = 0;
     while (line != NULL) {
-        printf("%s\n", line);
-//        matrix[i] = (char *) malloc(sizeof(char) * cols);
-//        for (int j = 0; j < cols; j++)
-//            matrix[i][j] = line[j];
+        matrix[i] = (char *) malloc(sizeof(char) * cols);
+        for (int j = 0; j < cols; j++)
+            matrix[i][j] = line[j];
         line = strtok(NULL, "\n");
-        printf("!%s\n", line);
         i++;
     }
-//    return matrix;
+    return matrix;
 }
 
+
 void graphvizConverter(char **matrix, int rows, int cols) {
-    FILE *outputFile = fopen(INPUT_FILE, "r");
+    FILE *outputFile = fopen(OUTPUT_FILE, "w");
     if (outputFile == NULL) {
         puts("Error opening file");
         exit(EXIT_FAILURE);
     }
-    fputs("digraph G {", outputFile);
-    fputs("\tedge[dir=none]", outputFile);
+    fputs("digraph G {\n", outputFile);
+    fputs("\tedge[dir=none]\n", outputFile);
     for (int i = 0; i < cols; i++) {
         int buffer[2];
         int connectionCounter = 0;
         for (int j = 0; j < rows; j++) {
-            if (matrix[i][j] == '1') {
+            if (matrix[j][i] == '1') {
                 buffer[connectionCounter] = j;
                 connectionCounter++;
             }
@@ -49,33 +48,7 @@ void graphvizConverter(char **matrix, int rows, int cols) {
     }
     fputs("}", outputFile);
     fclose(outputFile);
+    char str[50];
+    sprintf(str, "dot -Tpng %s -o ../output.png", OUTPUT_FILE);
+    system(str);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//void graphAnalyzer(char ) {
-//    for (int i = 0; i < columns; i++) {
-//        int vertices[2];
-//        int verticesCounter = 0;
-//        for (int j = 0; j < rows; j++) {
-//            if (matrix[i][j] == 1){
-//                vertices[verticesCounter] = 1;
-//                verticesCounter++;
-//            }
-//        }
-//        if (verticesCounter == 1)
-//            vertices[1] = vertices[0];
-//
-//    }
-//}

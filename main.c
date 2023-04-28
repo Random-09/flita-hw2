@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+//#include <string.h>
 #include "graph.h"
 
 int main() {
@@ -17,9 +17,8 @@ int main() {
     char buffer[fileLen];
     fread(buffer, sizeof(char), fileLen, inputFile);
 
-    int rows = 4; // rowCounter(buffer, fileLen)
-    char *line = strtok(buffer, "\n");
-    int cols = (int) strlen(line);
+    int rows = rowCounter(buffer, fileLen);
+    int cols = 4; // (int) strlen(line)
 
     char **matrix = strToMatrix(buffer, rows, cols);
 
