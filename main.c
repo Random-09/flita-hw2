@@ -3,8 +3,14 @@
 //#include <string.h>
 #include "graph.h"
 
-int main() {
-    FILE *inputFile = fopen(INPUT_FILE, "r");
+int main(int argc, char **argv) {
+    if (argc != 2) {
+        puts("Wrong number of arguments!");
+        exit(EXIT_FAILURE);
+    }
+    char filePath[strlen(argv[1])];
+    strcpy(filePath, argv[1]);
+    FILE *inputFile = fopen(filePath, "r");
     if (inputFile == NULL) {
         puts("Error opening file");
         exit(EXIT_FAILURE);
@@ -18,7 +24,7 @@ int main() {
     fread(buffer, sizeof(char), fileLen, inputFile);
 
     int rows = rowCounter(buffer, fileLen);
-    int cols = 4; // (int) strlen(line)
+    int cols = colCounter(buffer);
 
     char **matrix = strToMatrix(buffer, rows, cols);
 

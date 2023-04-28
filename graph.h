@@ -11,6 +11,8 @@
 
 int rowCounter(const char *buffer, int len);
 
+int colCounter(const char *buffer);
+
 char **strToMatrix(char *buffer, int rows, int cols);
 
 void printMatrix(char **matrix);

@@ -1,6 +1,5 @@
 #include "graph.h"
 
-
 int rowCounter(const char *buffer, int len) {
     int count = 1;
     for (int i = 0; i < len; i++) {
@@ -10,14 +9,22 @@ int rowCounter(const char *buffer, int len) {
     return count;
 }
 
+int colCounter(const char *buffer) {
+    int i = 0;
+    while (buffer[i] != '\n')
+        i++;
+    return i;
+}
+
 char **strToMatrix(char *buffer, int rows, int cols) {
     char *line = strtok(buffer, "\n");
     char **matrix = (char **) malloc(sizeof(char *) * rows);
     int i = 0;
     while (line != NULL) {
         matrix[i] = (char *) malloc(sizeof(char) * cols);
-        for (int j = 0; j < cols; j++)
+        for (int j = 0; j < cols; j++) {
             matrix[i][j] = line[j];
+        }
         line = strtok(NULL, "\n");
         i++;
     }
@@ -37,13 +44,15 @@ void graphvizConverter(char **matrix, int rows, int cols) {
         int buffer[2];
         int connectionCounter = 0;
         for (int j = 0; j < rows; j++) {
+            printf("%c", matrix[j][i]);
             if (matrix[j][i] == '1') {
                 buffer[connectionCounter] = j;
                 connectionCounter++;
             }
         }
-        if (connectionCounter == 1)
+        if (connectionCounter == 1) {
             buffer[1] = buffer[0];
+        }
         fprintf( outputFile, "\ta%d -> a%d\n", buffer[0], buffer[1]);
     }
     fputs("}", outputFile);
