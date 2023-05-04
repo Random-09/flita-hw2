@@ -5,18 +5,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
-#define INPUT_FILE "../input.txt"
-#define OUTPUT_FILE "../output.dot"
+struct Node {
+    int number;
+    struct Edge *edgeList;
+};
+
+struct Edge {
+    int source;
+    int destination
+};
 
 int rowCounter(const char *buffer, int len);
 
-int colCounter(const char *buffer);
-
 char **strToMatrix(char *buffer, int rows, int cols);
 
-void printMatrix(char **matrix);
-
-void graphvizConverter(char **matrix, int rows, int cols);
+void graphvizOutput(char **matrix, int rows, int cols, char *outputFilePath, char *pngFilePath);
 
 #endif
